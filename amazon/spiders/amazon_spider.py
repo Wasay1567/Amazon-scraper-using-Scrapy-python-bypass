@@ -27,23 +27,13 @@ class AmazonSpiderSpider(scrapy.Spider):
         product_price = response.css('#corePrice_desktop span::text').get()
         product_reviews = response.css('#acrCustomerReviewText::text').get()
         stars = response.css('#acrPopover .a-color-base ::text').get()
+        image_link = response.css('span[data-action="main-image-click"] img::attr(href)')
         yield {
             'name' : product_title,
             'price' : product_price,
             'stars' : stars,
-            'reviews' : product_reviews
+            'reviews' : product_reviews,
+            'image_url' : image_link
         }
 
 
-
-    # def parse(self, response):
-    #     product_name = response.css('.a-color-base.a-text-normal').css('::text').extract()
-    #     # product_price = response.css('.widgetId\=search-results_5 .a-color-secondary .a-color-base , .puis-price-instructions-style .a-price-whole').css('::text').extract()
-    #     product_image_link = response.css('.s-image::attr(href)').extract()
-
-
-    #     yield {
-    #         'product_name' : product_name,
-    #         # 'product_price' : product_price,
-    #         'product_image_link' : product_image_link
-    #     }
